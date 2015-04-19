@@ -1,0 +1,18 @@
+Tennis Program
+
+2 and out bracket
+
+- Seeding for top teams
+- Random insertion of remaining teams
+- Ability to adjust with teams coming late/ dropping
+- Adjust number of people playing
+- Schedule for 6 courts with 2 tournaments 
+
+Mixer
+- Play with and against the same people as little as possible
+	- with worse than against
+- Men vs. Women uneven split
+	- Designate some of one gender as other
+	- Rotate through so people involved with 3 & 1 are minimized (not multiple times)
+	- Play all gender game and rotate those involved
+- Adjust number of rounds and number of people
