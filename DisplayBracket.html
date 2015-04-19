@@ -1,9 +1,19 @@
 <html>
+<head>
 <title>Tennis Bracket</title>
-<hr>
-<applet code="DisplayBracket.class" width="500" height="500">
-The applet is not displaying properly. Please ensure that you have Java 
-enabled in your browser.
-</applet>
-<hr>
+</head>
+<body>
+	<hr>
+	<object width="300" height="100">
+		<param name="code" value="DisplayBracket"/>
+		<param name="archive" value="DisplayBracket.jar"/>
+		<embed type="application/x-java-applet" width="300" height = "100"
+			archive="DisplayBracket.jar"
+			code="DisplayBracket.class"
+			pluginspage="http://java.com/download/"/>
+		Applet failed to run.
+		</embed>
+	</object>
+	<hr>
+</body>
 </html>
