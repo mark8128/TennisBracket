@@ -1,6 +1,6 @@
 // Mark Mahony
 // April 18, 2015
-// Tennis Tournamnet Planner
+// Tennis Tournament Planner
 // Bracket tree structure
 
 public class Match
@@ -36,6 +36,8 @@ public class Match
     {
         subL = left;
         subR = right;
+        parent = null;
+        t = null;
     }
     public Match(Team tm)
     {
@@ -86,6 +88,7 @@ public class Match
     {
         if (t != null)
             return t.getNames();
+        
         return "Determined by winner";
     }
     

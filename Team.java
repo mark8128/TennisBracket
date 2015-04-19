@@ -1,6 +1,6 @@
 // Mark Mahony
 // April 18, 2015
-// Tennis Tournamnet Planner
+// Tennis Tournament Planner
 // Team for bracket tree
 
 public class Team
@@ -26,6 +26,7 @@ public class Team
     {
         player1 = p1;
         player2 = p2;
+        seed = -1;
     }
     
     // Getters
@@ -64,6 +65,7 @@ public class Team
     {
         if (seed == -1)
             return player1 + " and " + player2 + " unseeded";
+        
         return player1 + " and " + player2 + "\tseed: " + seed;
     }
 }
