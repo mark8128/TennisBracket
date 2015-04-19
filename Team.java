@@ -63,8 +63,8 @@ public class Team
     
     public String toString()
     {
-        if (seed == -1)
-            return player1 + " and " + player2 + " unseeded";
+        if (player2.equals(""))
+            return player1;
         
         return player1 + " and " + player2 + "\tseed: " + seed;
     }
