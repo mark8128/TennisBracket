@@ -43,7 +43,38 @@ public class DoublesBracket
         
         createTree(enterants);
         
+        arrangeSeeds(seedTeams(enterants));
+        
         System.out.println("");
+        
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        arr.add(1);
+        arr.add(2);
+        arr.add(3);
+        arr.add(4);
+        arr.add(5);
+        arr.add(6);
+        arr.add(7);
+        arr.add(8);
+        arr.add(9);
+        arr.add(10);
+        arr.add(11);
+        arr.add(12);
+        arr.add(13);
+        arr.add(14);
+        arr.add(15);
+        arr.add(16);
+        
+        System.out.println("Size of Arr before: " + arr.size());
+        
+        arr = split(arr);
+        
+        for (int i = 0; i < arr.size(); i++)
+        {
+            System.out.println(arr.get(i));
+        }
+        
+        System.out.println("Size of Arr after: " + arr.size());
     }
     
     public static Match createTree(ArrayList<Team> t)
@@ -164,6 +195,115 @@ public class DoublesBracket
         
         
         return t;
+    }
+    
+    public static void arrangeSeeds(ArrayList<Team> t)
+    {
+        // First sort the teams based on seeds
+        int lowSeed;
+        int index;
+        Team tempTeam;
+        for (int i = 0; i < t.size() - 1; i++)
+        {
+            lowSeed = t.get(i).getSeed();
+            index = i;
+            for (int j = i + 1; j < t.size(); j++)
+            {
+                if (t.get(j).getSeed() < lowSeed)
+                {
+                    lowSeed = t.get(j).getSeed();
+                    index = j;
+                }
+                
+            }
+            // swap
+            tempTeam = t.get(i);
+            t.set(i, t.get(index));
+            t.set(index, tempTeam);
+        }
+        
+        
+        
+        for (int i = 0; i < t.size(); i++)
+        {
+            System.out.println(t.get(i));
+        }
+        
+        // Use a set of integers to sort permute the list, then swap the teams around
+    }
+    
+    public static ArrayList<Integer> split(ArrayList<Integer> seeds)
+    {
+        int l = seeds.size();
+        
+        // Check if the algorithm has reached the end
+        if (l == 2)
+            return seeds;
+        
+        // Split the list into the two halves
+        ArrayList<Integer> set1 = new ArrayList<Integer>();
+        ArrayList<Integer> set2 = new ArrayList<Integer>();
+        
+        for (int i = 0; i < l; i++)
+        {
+            if (i % 4 == 0 || i % 4 == 3)
+                set1.add(seeds.get(i));
+            else
+                set2.add(seeds.get(i));
+        }
+        /*
+        for (int i = 0; i < l/2.0; i++)
+        {
+            System.out.println(set1.get(i));
+        }
+        
+        for (int i = 0; i < l/2.0; i++)
+        {
+            System.out.println(set2.get(i));
+        }*/
+        
+        // Recursively call this function and the one with the swap
+        set1 = split(set1);
+        set1.addAll(splitSwitch(set2));
+        return set1;
+        
+    }
+    
+    public static ArrayList<Integer> splitSwitch(ArrayList<Integer> seeds)
+    {
+        int l = seeds.size();
+        
+        // Check if the algorithm has reached the end
+        if (l == 2)
+            return seeds;
+        
+        // Split the list into the two halves
+        ArrayList<Integer> set1 = new ArrayList<Integer>();
+        ArrayList<Integer> set2 = new ArrayList<Integer>();
+        
+        for (int i = 0; i < l; i++)
+        {
+            if (i % 4 == 0 || i % 4 == 3)
+                set1.add(seeds.get(i));
+            else
+                set2.add(seeds.get(i));
+        }
+        /*
+         for (int i = 0; i < l/2.0; i++)
+         {
+         System.out.println(set1.get(i));
+         }
+         
+         for (int i = 0; i < l/2.0; i++)
+         {
+         System.out.println(set2.get(i));
+         }*/
+        
+        // Recursively call this function and the one with the swap
+        set1 = split(set1);
+        set1.addAll(split(set2));
+        return set1;
+
     }
 }
 
