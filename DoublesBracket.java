@@ -30,53 +30,31 @@ public class DoublesBracket
         //m5.printTree();
         
         
-        ArrayList<Team> enterants = new ArrayList<Team>();
-        enterants.add(new Team("p1", "p1", 1));
-        enterants.add(new Team("p2", "p2", 2));
-        enterants.add(new Team("p3", "p3"));
-        enterants.add(new Team("p4", "p4", 4));
-        enterants.add(new Team("p5", "p5"));
-        enterants.add(new Team("p6", "p6", 3));
-        enterants.add(new Team("p7", "p7", 8));
-        enterants.add(new Team("p8", "p8", 0));
-        enterants.add(new Team("p9", "p9", 10));
+        ArrayList<Team> entrants = new ArrayList<Team>();
+        entrants.add(new Team("p1", "p1", 1));
+        entrants.add(new Team("p2", "p2", 2));
+        entrants.add(new Team("p3", "p3"));
+        entrants.add(new Team("p4", "p4", 4));
+        entrants.add(new Team("p5", "p5"));
+        entrants.add(new Team("p6", "p6", 3));
+        entrants.add(new Team("p7", "p7", 8));
+        entrants.add(new Team("p8", "p8", 0));
+        entrants.add(new Team("p9", "p9", 10));
         
-        createTree(enterants);
+        for (Team tm : entrants)
+            System.out.println(tm);
+        System.out.println();
         
-        arrangeSeeds(seedTeams(enterants));
+        arrangeSeeds(seedTeams(entrants));
         
-        System.out.println("");
+        for (Team tm : entrants)
+            System.out.println(tm);
         
-        ArrayList<Integer> arr = new ArrayList<Integer>();
-        arr.add(1);
-        arr.add(2);
-        arr.add(3);
-        arr.add(4);
-        arr.add(5);
-        arr.add(6);
-        arr.add(7);
-        arr.add(8);
-        arr.add(9);
-        arr.add(10);
-        arr.add(11);
-        arr.add(12);
-        arr.add(13);
-        arr.add(14);
-        arr.add(15);
-        arr.add(16);
+        System.out.println();
         
-        System.out.println("Size of Arr before: " + arr.size());
-        
-        arr = split(arr);
-        
-        for (int i = 0; i < arr.size(); i++)
-        {
-            System.out.println(arr.get(i));
-        }
-        
-        System.out.println("Size of Arr after: " + arr.size());
     }
     
+    // Creates the tree used for the tournament
     public static Match createTree(ArrayList<Team> t)
     {
         // Add dummy leaves which are byes
@@ -91,6 +69,7 @@ public class DoublesBracket
         return null;
     }
     
+    // Takes the list of all the teams, and gives the teams without a declared seed one of the seeds which has not yet been used. Dummy teams which act as byes are then added to the list.
     public static ArrayList<Team> seedTeams(ArrayList<Team> t)
     {
         int seedLength = t.size();
@@ -141,15 +120,15 @@ public class DoublesBracket
         {
             allSeeds.add(i);
         }
+        int allSeedIndex = 0;
+        
         for (int i = 0; i < seeds.size(); i++)
         {
-            int j = 0;
-            
-            while(seeds.get(i) != allSeeds.get(j))
+            while(seeds.get(i) != allSeeds.get(allSeedIndex))
             {
-                j++;
+                allSeedIndex++;
             }
-            allSeeds.remove(j);
+            allSeeds.remove(allSeedIndex);
         }
         
         // Randomly Assign the remaining seeds to teams without a seed
@@ -166,38 +145,17 @@ public class DoublesBracket
             }
         }
         
-        /*
-        // Printout
-        System.out.println("All available seeds");
-        for (int i = 0; i < allSeeds.size(); i++)
-        {
-            System.out.println(allSeeds.get(i));
-        }
-        System.out.println("");
-        
-        System.out.println("All used seeds");
-        for (int i = 0; i < seeds.size(); i++)
-            System.out.println(seeds.get(i));
-        
-        
         // Add teams to act as byes
         for (int i = seedLength; i < bracketSize; i++)
         {
-            t.add(new Team("bye " + (i + 1), "", i));
+            t.add(new Team("bye " + (i + 1), "", i + 1));
         }
-        System.out.println("");
-        
-        System.out.println("Teams final seeds");
-        for (int i = 0; i < t.size(); i++)
-        {
-            System.out.println(t.get(i));
-        }*/
-        
         
         return t;
     }
     
-    public static void arrangeSeeds(ArrayList<Team> t)
+    // Permutes the seeds so they are in tournament order
+    public static ArrayList<Team> arrangeSeeds(ArrayList<Team> t)
     {
         // First sort the teams based on seeds
         int lowSeed;
@@ -222,16 +180,27 @@ public class DoublesBracket
             t.set(index, tempTeam);
         }
         
+        // Use split with Integer representations to get the positions of the seeds
+        ArrayList<Integer> intSeeds = new ArrayList<Integer>();
         
-        
-        for (int i = 0; i < t.size(); i++)
+        for (int i = 1; i <= t.size(); i++)
         {
-            System.out.println(t.get(i));
+            intSeeds.add(i);
         }
         
-        // Use a set of integers to sort permute the list, then swap the teams around
+        intSeeds = split(intSeeds);
+        
+        // Reorder the seeds so they are in the same order as the integers.
+        ArrayList<Team> orderedTeams = new ArrayList<>();
+        for (int i = 0; i < intSeeds.size(); i++)
+        {
+            orderedTeams.add(t.get(intSeeds.get(i) - 1));
+        }
+        
+        return orderedTeams;
     }
     
+    // Arranges an Integer array list representing the seeds so all teams have the correct path through the tournament
     public static ArrayList<Integer> split(ArrayList<Integer> seeds)
     {
         int l = seeds.size();
@@ -251,16 +220,6 @@ public class DoublesBracket
             else
                 set2.add(seeds.get(i));
         }
-        /*
-        for (int i = 0; i < l/2.0; i++)
-        {
-            System.out.println(set1.get(i));
-        }
-        
-        for (int i = 0; i < l/2.0; i++)
-        {
-            System.out.println(set2.get(i));
-        }*/
         
         // Recursively call this function and the one with the swap
         set1 = split(set1);
@@ -269,13 +228,20 @@ public class DoublesBracket
         
     }
     
+    // Same as split, but includes a swap to position the teams in the familiar order
     public static ArrayList<Integer> splitSwitch(ArrayList<Integer> seeds)
     {
         int l = seeds.size();
         
         // Check if the algorithm has reached the end
         if (l == 2)
+        {
+            int swap = seeds.get(0);
+            seeds.set(0, seeds.get(1));
+            seeds.set(1, swap);
+            
             return seeds;
+        }
         
         // Split the list into the two halves
         ArrayList<Integer> set1 = new ArrayList<Integer>();
@@ -284,31 +250,15 @@ public class DoublesBracket
         for (int i = 0; i < l; i++)
         {
             if (i % 4 == 0 || i % 4 == 3)
-                set1.add(seeds.get(i));
-            else
                 set2.add(seeds.get(i));
+            else
+                set1.add(seeds.get(i));
         }
-        /*
-         for (int i = 0; i < l/2.0; i++)
-         {
-         System.out.println(set1.get(i));
-         }
-         
-         for (int i = 0; i < l/2.0; i++)
-         {
-         System.out.println(set2.get(i));
-         }*/
         
         // Recursively call this function and the one with the swap
         set1 = split(set1);
-        set1.addAll(split(set2));
+        set1.addAll(splitSwitch(set2));
         return set1;
 
     }
 }
-
-
-
-// Add null value matches seeded at the end to round out to a power of 2
-// Get list 1..2^n then remove all selected seeds
-// Give all remaining teams one of the left over seeds (arraylist remove)

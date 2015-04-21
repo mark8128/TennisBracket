@@ -65,6 +65,8 @@ public class Team
     {
         if (player2.equals(""))
             return player1;
+        if (seed == -1)
+            return player1 + " and " + player2;
         
         return player1 + " and " + player2 + "\tseed: " + seed;
     }
