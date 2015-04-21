@@ -12,7 +12,7 @@ public class DoublesBracket
     public static void main(String args[])
     {
         System.out.println("");
-        
+        /*
         // Create a tree to test on
         Match m1 = new Match(new Team("p1", "p1"));
         Match m2 = new Match(new Team("p2", "p2"));
@@ -25,7 +25,7 @@ public class DoublesBracket
         m4.setParent(m5);
         Match m6 = new Match(new Team("p6", "p6"));
         m6.setParent(m4);
-        m4.setSubL(m6);
+        m4.setSubL(m6);*/
 
         //m5.printTree();
         
@@ -45,7 +45,7 @@ public class DoublesBracket
             System.out.println(tm);
         System.out.println();
         
-        arrangeSeeds(seedTeams(entrants));
+        entrants = arrangeSeeds(seedTeams(entrants));
         
         for (Team tm : entrants)
             System.out.println(tm);
